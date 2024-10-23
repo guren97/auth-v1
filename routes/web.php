@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Post;
 
+<<<<<<< Updated upstream
 Route::get('/', function () {
     $posts = Post::paginate(10); // Use the Post model and paginate the posts
     return view('home', ['posts' => $posts]);
@@ -26,6 +27,19 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+=======
+    use App\Http\Controllers\PostController;
+    use App\Http\Controllers\UserPostController; 
+    
+    Route::get('/', function () {
+        return view('home');
+    }); 
+
+    Route::resource('posts', PostController::class)->only(['index','show']);  
+
+    // Define your routes
+Route::get('/user-posts', [UserPostController::class, 'index'])->name('user.posts.index');
+>>>>>>> Stashed changes
 
 // Include authentication routes (login, register, etc.)
 require __DIR__.'/auth.php';

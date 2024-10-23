@@ -3,11 +3,7 @@
 namespace App\Http\Controllers; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
- 
-
-use App\Models\Post;
-use App\Models\User;
-
+  
 class UserPostController extends Controller
 {
 /**
@@ -16,9 +12,10 @@ class UserPostController extends Controller
 public function index()
 { 
     // Retrieve the posts of the authenticated user
-    $posts = Auth::user()->posts()->with('user')->paginate(); 
-
-    return view('dashboard', ['posts' => $posts]); 
+   // Retrieve the posts of the authenticated user
+   $posts = Auth::user()->posts()->with('user')->paginate(10);  
+    
+   return view('dashboard', ['posts' => $posts]); 
 }
 
 
