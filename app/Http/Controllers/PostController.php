@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all(); // Fetch all posts
+        $posts = Post::paginate(10); // Fetch all posts
         return view('posts.index', compact('posts')); // Pass to view
     }
 

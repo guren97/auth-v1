@@ -31,20 +31,31 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'job_title' => ['nullable', 'string', 'max:255'], // Validate job title
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'profile_image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'], // Validate profile image
         ]);
+
+        // Handle profile image upload
+        $profileImagePath = null;
+        if ($request->hasFile('profile_image')) {
+            $profileImagePath = $request->file('profile_image')->store('profile_images', 'public');
+        }
 
         $user = User::create([
             'name' => $request->name,
+            'job_title' => $request->job_title, // Save job title
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'profile_image' => $profileImagePath, // Save profile image path
         ]);
 
         event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('dashboard', absolute: false))->with('status', 'User registered and logged in!');
+      
     }
 }

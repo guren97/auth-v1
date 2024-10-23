@@ -16,7 +16,12 @@ return new class extends Migration
             $table->foreignIdFor(App\Models\User::class)->constrained()->cascadeOnDelete();
             $table->string('title');
             $table->text('content');
+            $table->string('slug')->unique(); // URL-friendly version of the title
+            $table->string('image')->nullable(); // Optional image for the post
             $table->timestamps();
+
+            // Add index to the slug column
+            $table->index('slug');
         });
     }
 

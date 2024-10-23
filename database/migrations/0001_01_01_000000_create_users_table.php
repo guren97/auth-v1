@@ -14,8 +14,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('job_title')->nullable(); // Define job_title as nullable correctly
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('profile_image')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
@@ -42,8 +44,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        Schema::dropIfExists('sessions'); // Drop sessions table first due to foreign key constraint
+        Schema::dropIfExists('password_reset_tokens'); // Drop password_reset_tokens table next
+        Schema::dropIfExists('users'); // Finally drop users table
     }
 };
