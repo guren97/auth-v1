@@ -23,6 +23,11 @@
             </div> 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6"> 
+
+                <div class="border rounded-full"> 
+                    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}"  alt="Profile Image" class="inline-block h-12 w-12 rounded-full ring-2 ring-white" />
+                </div>
+                
                 <x-dropdown align="right" width="48">
                     
                     <x-slot name="trigger">

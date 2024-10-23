@@ -83,7 +83,7 @@ public function update(ProfileUpdateRequest $request): RedirectResponse
  
         $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'Profile picture updated.');
+        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
     // Handle failure to update (optional)
