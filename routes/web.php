@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Models\Post;
 
-<<<<<<< Updated upstream
+ 
 Route::get('/', function () {
     $posts = Post::paginate(10); // Use the Post model and paginate the posts
     return view('home', ['posts' => $posts]);
